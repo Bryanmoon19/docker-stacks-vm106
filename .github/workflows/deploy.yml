@@ -15,7 +15,7 @@ jobs:
           username: bmoon19
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
-            cd /opt/docker
+            cd /opt/docker/compose
             git pull origin main
             docker compose up -d --build
             docker system prune -f
