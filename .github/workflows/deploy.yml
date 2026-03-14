@@ -1,0 +1,21 @@
+name: Deploy to VM 106
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Docker Host
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 192.168.7.219
+          username: bmoon19
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cd /opt/docker
+            git pull origin main
+            docker compose up -d --build
+            docker system prune -f
