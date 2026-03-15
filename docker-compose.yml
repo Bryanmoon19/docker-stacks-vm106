@@ -411,32 +411,6 @@ services:
           memory: 512M
           cpus: '0.5'
 
-  huntarr:
-    image: ghcr.io/plexguide/huntarr:latest
-    container_name: huntarr
-    user: "977:988"
-    environment:
-      - TZ=${TZ}
-      - UMASK=${UMASK}
-    volumes:
-      - ${CONFIG_PATH}/huntarr:/config
-    ports:
-      - ${HUNTARR_PORT}:7874
-    networks:
-      - arr-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7874/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 180s
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-          cpus: '0.5'
-
 networks:
   arr-network:
     driver: bridge
